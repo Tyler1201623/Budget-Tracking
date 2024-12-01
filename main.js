@@ -150,3 +150,30 @@
           document.body.classList.add('dark-mode');
       }
   }
+
+function appendToCalc(value) {
+    const input = document.getElementById('calc-input');
+    input.value += value;
+}
+
+function clearCalc() {
+    document.getElementById('calc-input').value = '';
+}
+
+function calculateResult() {
+    const input = document.getElementById('calc-input');
+    try {
+        const result = eval(input.value);
+        input.value = Number(result.toFixed(2));
+    } catch (error) {
+        input.value = 'Error';
+        setTimeout(clearCalc, 1500);
+    }
+}
+
+function useResultInAmount() {
+    const result = document.getElementById('calc-input').value;
+    if (result && result !== 'Error') {
+        document.getElementById('amount').value = result;
+    }
+}

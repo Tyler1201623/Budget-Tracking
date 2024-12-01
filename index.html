@@ -67,3 +67,30 @@
       <script src="main.js"></script>
   </body>
   </html>
+
+<div class="calculator">
+    <h2>Quick Calculator</h2>
+    <div class="calc-display">
+        <input type="text" id="calc-input" readonly>
+    </div>
+    <div class="calc-buttons">
+        <button class="calc-btn" onclick="appendToCalc('7')">7</button>
+        <button class="calc-btn" onclick="appendToCalc('8')">8</button>
+        <button class="calc-btn" onclick="appendToCalc('9')">9</button>
+        <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+        <button class="calc-btn" onclick="appendToCalc('4')">4</button>
+        <button class="calc-btn" onclick="appendToCalc('5')">5</button>
+        <button class="calc-btn" onclick="appendToCalc('6')">6</button>
+        <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+        <button class="calc-btn" onclick="appendToCalc('1')">1</button>
+        <button class="calc-btn" onclick="appendToCalc('2')">2</button>
+        <button class="calc-btn" onclick="appendToCalc('3')">3</button>
+        <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
+        <button class="calc-btn" onclick="appendToCalc('0')">0</button>
+        <button class="calc-btn" onclick="appendToCalc('.')">.</button>
+        <button class="calc-btn equals" onclick="calculateResult()">=</button>
+        <button class="calc-btn operator" onclick="appendToCalc('/')">÷</button>
+        <button class="calc-btn clear" onclick="clearCalc()">C</button>
+        <button class="calc-btn" onclick="useResultInAmount()">Use Result</button>
+    </div>
+</div>
