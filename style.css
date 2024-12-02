@@ -81,96 +81,169 @@ body.dark-mode {
 .balance-card {
     padding: calc(var(--spacing-base) * 3);
 }
+  .dark-mode .balance-card,
+  .dark-mode .stat-card {
+      background: var(--card-bg-dark);
+      color: var(--text-dark);
+      box-shadow: var(--card-shadow-dark);
+  }
 
-.dark-mode .balance-card,
-.dark-mode .stat-card {
-    background: var(--card-bg-dark);
-    color: var(--text-dark);
-    box-shadow: var(--card-shadow-dark);
-}
+  /* Mobile-First Base Styles */
+  :root {
+      --container-width: min(95%, 1400px);
+      --card-padding: clamp(1rem, 3vw, 2rem);
+      --border-radius: clamp(8px, 2vw, 15px);
+  }
 
-.transaction-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-    gap: var(--spacing-base);
-}
+  .container {
+      width: var(--container-width);
+      padding: var(--card-padding);
+  }
 
-/* Fluid Typography */
-h1 { font-size: clamp(1.8rem, 3vw, 3rem); }
-h2 { font-size: clamp(1.5rem, 2.5vw, 2.5rem); }
-h3 { font-size: clamp(1.2rem, 2vw, 2rem); }
-p { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+  /* Enhanced Grid Layout */
+  .transaction-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+  }
 
-/* Fluid Spacing */
-.transaction-item,
-.savings-card,
-.stat-card {
-    padding: calc(var(--spacing-base) * 1.5);
-    margin: var(--spacing-base) 0;
-}
+  /* Mobile Optimizations */
+  @media (max-width: 480px) {
+      .balance-card {
+          padding: var(--card-padding);
+      }
+    
+      .calculator {
+          margin: 1rem auto;
+          padding: 1rem;
+      }
+    
+      .calc-buttons {
+          gap: 8px;
+      }
+    
+      .calc-btn {
+          height: 55px;
+          font-size: 1.2rem;
+      }
+    
+      .transaction-form {
+          grid-template-columns: 1fr;
+      }
+    
+      .savings-results {
+          grid-template-columns: 1fr;
+      }
+  }
 
-input, select, button {
-    padding: calc(var(--spacing-base) * 0.8);
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    height: clamp(44px, 5vh, 60px);
-}
+  /* Tablet Optimizations */
+  @media (min-width: 481px) and (max-width: 768px) {
+      .stats-container {
+          grid-template-columns: repeat(2, 1fr);
+      }
+    
+      .savings-results {
+          grid-template-columns: repeat(2, 1fr);
+      }
+  }
 
-.stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-    gap: var(--spacing-base);
-}
+  /* Landscape Mode */
+  @media (orientation: landscape) and (max-height: 600px) {
+      .container {
+          padding: 0.5rem;
+      }
+    
+      .calculator {
+          max-width: 100%;
+          margin: 1rem auto;
+      }
+  }
 
-.savings-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-    gap: var(--spacing-base);
-}    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-    gap: clamp(0.5rem, 1vw, 1rem);
-}
+  /* Touch Device Optimizations */
+  @media (hover: none) {
+      input, select, button {
+          padding: 12px;
+          min-height: 48px;
+      }
+    
+      .calc-btn:active {
+          transform: scale(0.95);
+      }
+  }
 
-input, select, button {
-    min-height: 44px;
-    padding: clamp(0.5rem, 1vw, 0.8rem);
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+  /* Fluid Typography */
+  h1 { font-size: clamp(1.8rem, 3vw, 3rem); }
+  h2 { font-size: clamp(1.5rem, 2.5vw, 2.5rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 2rem); }
+  p { font-size: clamp(1rem, 1.5vw, 1.25rem); }
 
-button {
-    background: var(--primary-light);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+  /* Fluid Spacing */
+  .transaction-item,
+  .savings-card,
+  .stat-card {
+      padding: calc(var(--spacing-base) * 1.5);
+      margin: var(--spacing-base) 0;
+  }
 
-button:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-}
+  input, select, button {
+      padding: calc(var(--spacing-base) * 0.8);
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      height: clamp(44px, 5vh, 60px);
+  }
 
-.savings-results,
-.stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-    gap: clamp(0.5rem, 1vw, 1rem);
-}
+  .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--spacing-base);
+  }
 
-.income {
-    background: var(--primary-light);
-    color: white;
-}
+  .savings-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--spacing-base);
+  }
 
-.expenses {
-    background: var(--danger-light);
-    color: white;
-}
+  input, select, button {
+      min-height: 44px;
+      padding: clamp(0.5rem, 1vw, 0.8rem);
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+      border: 1px solid #ddd;
+      border-radius: 5px;
+  }
 
-.dark-mode .income {
-    background: var(--primary-dark);
-}
+  button {
+      background: var(--primary-light);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  }
 
+  button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+  }
+
+  .savings-results,
+  .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: clamp(0.5rem, 1vw, 1rem);
+  }
+
+  .income {
+      background: var(--primary-light);
+      color: white;
+  }
+
+  .expenses {
+      background: var(--danger-light);
+      color: white;
+  }
+
+  .dark-mode .income {
+      background: var(--primary-dark);
+  }
 .dark-mode .expenses {
     background: var(--danger-dark);
 }
@@ -245,6 +318,31 @@ input:focus, select:focus {
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.15);
 }
 
+/* Modern Card Design */
+.balance-card, .stat-card, .savings-card {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+/* Smooth Animations */
+.transaction-item {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* Enhanced Typography */
 h1 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
 h2 { font-size: clamp(1.25rem, 2.5vw, 2rem); }
@@ -253,6 +351,8 @@ p { font-size: clamp(0.875rem, 1.5vw, 1rem); }
 
 h1, h2, h3 {
     font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, currentColor 0%, rgba(255,255,255,0.8) 100%);
     -webkit-background-clip: text;
