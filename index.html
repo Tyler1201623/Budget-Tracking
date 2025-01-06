@@ -1,98 +1,149 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <meta name="theme-color" content="#2ecc71">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <title>Smart Budget Tracker</title>
-      <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-      <div class="container">
-          <header>
-              <div class="theme-toggle">
-                  <button id="theme-switch">
-                      <div class="toggle-icons">
-                          <span class="sun">☀️</span>
-                          <span class="moon">🌙</span>
-                      </div>
-                  </button>
-              </div>
-              <h1>Smart Budget Tracker</h1>
-              <div class="balance-card">
-                  <h2>Total Balance</h2>
-                  <h1 id="balance">$0.00</h1>
-              </div>
-          </header>
-        
-          <div class="transaction-form">
-              <input type="text" id="description" placeholder="Description">
-              <input type="number" id="amount" placeholder="Amount">
-              <select id="type">
-                  <option value="income">Income</option>
-                  <option value="expense">Expense</option>
-              </select>
-              <button onclick="addTransaction()">Add Transaction</button>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2ecc71">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <title>Smart Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="theme-toggle">
+                <button id="theme-switch">
+                    <div class="toggle-icons">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                    </div>
+                </button>
+            </div>
+            <h1>Smart Budget Tracker</h1>
+            <select id="currency-selector">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+            </select>
+            <div class="balance-card">
+                <h2>Total Balance</h2>
+                <h1 id="balance">$0.00</h1>
+            </div>
+        </header>
 
-          <div class="savings-planner">
-              <h2>Savings Goal Calculator</h2>
-              <div class="savings-form">
-                  <input type="number" id="target-amount" placeholder="Target Amount">
-                  <input type="number" id="duration-days" placeholder="Duration (days)">
-                  <button onclick="calculateAndDisplaySavings()">Calculate Savings Plan</button>
-              </div>
-              <div class="savings-results">
-                  <div class="savings-card" id="daily-savings"></div>
-                  <div class="savings-card" id="weekly-savings"></div>
-                  <div class="savings-card" id="monthly-savings"></div>
-              </div>
-          </div>
+        <div class="quick-actions">
+            <button onclick="addIncome()">Quick Income</button>
+            <button onclick="addExpense()">Quick Expense</button>
+            <button onclick="generateReport()">Monthly Report</button>
+        </div>
 
-          <div class="stats-container">
-              <div class="stat-card income">
-                  <h3>Income</h3>
-                  <p id="total-income">$0.00</p>
-              </div>
-              <div class="stat-card expenses">
-                  <h3>Expenses</h3>
-                  <p id="total-expenses">$0.00</p>
-              </div>
-          </div>
+        <div class="transaction-form">
+            <input type="text" id="description" placeholder="Description">
+            <input type="number" id="amount" placeholder="Amount">
+            <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+            <select id="category">
+                <option value="salary">Salary</option>
+                <option value="food">Food</option>
+                <option value="transport">Transport</option>
+                <option value="utilities">Utilities</option>
+            </select>
+            <button onclick="addTransaction()">Add Transaction</button>
+        </div>
 
-          <div class="history-container">
-              <h2>Transaction History</h2>
-              <ul id="transaction-list"></ul>
-          </div>
-      </div>
-      <script src="main.js"></script>
-  </body>
-  </html>
+        <div class="budget-goals">
+            <input type="number" id="monthly-budget" placeholder="Set Monthly Budget">
+            <div id="budget-progress"></div>
+        </div>
 
-<div class="calculator">
-    <h2>Quick Calculator</h2>
-    <div class="calc-display">
-        <input type="text" id="calc-input" readonly>
+        <div class="savings-planner">
+            <h2>Savings Goal Calculator</h2>
+            <div class="savings-form">
+                <input type="number" id="target-amount" placeholder="Target Amount">
+                <input type="number" id="duration-days" placeholder="Duration (days)">
+                <button onclick="calculateAndDisplaySavings()">Calculate Savings Plan</button>
+            </div>
+            <div class="savings-results">
+                <div class="savings-card" id="daily-savings"></div>
+                <div class="savings-card" id="weekly-savings"></div>
+                <div class="savings-card" id="monthly-savings"></div>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card income">
+                <h3>Income</h3>
+                <p id="total-income">$0.00</p>
+            </div>
+            <div class="stat-card expenses">
+                <h3>Expenses</h3>
+                <p id="total-expenses">$0.00</p>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <canvas id="expense-chart"></canvas>
+            <canvas id="income-chart"></canvas>
+        </div>
+
+        <div class="history-container">
+            <h2>Transaction History</h2>
+            <div class="search-container">
+                <input type="search" id="transaction-search" placeholder="Search transactions...">
+            </div>
+            <div class="date-filters">
+                <input type="date" id="start-date">
+                <input type="date" id="end-date">
+                <button onclick="filterByDate()">Filter</button>
+            </div>
+            <ul id="transaction-list"></ul>
+        </div>
+
+        <div class="recurring-transactions">
+            <h3>Recurring Payments</h3>
+            <button onclick="setupRecurring()">Set Up Recurring</button>
+        </div>
+
+        <div class="export-options">
+            <button onclick="exportToPDF()">Export PDF</button>
+            <button onclick="exportToCSV()">Export CSV</button>
+        </div>
+
+        <div class="calculator">
+            <h2>Quick Calculator</h2>
+            <div class="calc-display">
+                <input type="text" id="calc-input" readonly>
+            </div>
+            <div class="calc-grid">
+                <button class="calc-btn clear" onclick="clearCalc()">C</button>
+                <button class="calc-btn operator" onclick="appendToCalc('/')">/</button>
+                <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
+                <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                
+                <button class="calc-btn" onclick="appendToCalc('7')">7</button>
+                <button class="calc-btn" onclick="appendToCalc('8')">8</button>
+                <button class="calc-btn" onclick="appendToCalc('9')">9</button>
+                <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                
+                <button class="calc-btn" onclick="appendToCalc('4')">4</button>
+                <button class="calc-btn" onclick="appendToCalc('5')">5</button>
+                <button class="calc-btn" onclick="appendToCalc('6')">6</button>
+                <button class="calc-btn" onclick="appendToCalc('.')">.</button>
+                
+                <button class="calc-btn" onclick="appendToCalc('1')">1</button>
+                <button class="calc-btn" onclick="appendToCalc('2')">2</button>
+                <button class="calc-btn" onclick="appendToCalc('3')">3</button>
+                <button class="calc-btn" onclick="appendToCalc('0')">0</button>
+                
+                <button class="calc-btn equals" onclick="calculateResult()">=</button>
+                <button class="calc-btn use-result" onclick="useResultInAmount()">Use Result</button>
+            </div>
+        </div>
     </div>
-    <div class="calc-buttons">
-        <button class="calc-btn" onclick="appendToCalc('7')">7</button>
-        <button class="calc-btn" onclick="appendToCalc('8')">8</button>
-        <button class="calc-btn" onclick="appendToCalc('9')">9</button>
-        <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
-        <button class="calc-btn" onclick="appendToCalc('4')">4</button>
-        <button class="calc-btn" onclick="appendToCalc('5')">5</button>
-        <button class="calc-btn" onclick="appendToCalc('6')">6</button>
-        <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
-        <button class="calc-btn" onclick="appendToCalc('1')">1</button>
-        <button class="calc-btn" onclick="appendToCalc('2')">2</button>
-        <button class="calc-btn" onclick="appendToCalc('3')">3</button>
-        <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
-        <button class="calc-btn" onclick="appendToCalc('0')">0</button>
-        <button class="calc-btn" onclick="appendToCalc('.')">.</button>
-        <button class="calc-btn equals" onclick="calculateResult()">=</button>
-        <button class="calc-btn operator" onclick="appendToCalc('/')">÷</button>
-        <button class="calc-btn clear" onclick="clearCalc()">C</button>
-        <button class="calc-btn" onclick="useResultInAmount()">Use Result</button>
-    </div>
-</div>
+    <script src="main.js"></script>
+</body>
+</html>
